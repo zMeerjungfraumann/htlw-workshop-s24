@@ -2,6 +2,7 @@ import express from 'express';
 import envUtil from './util/env.util';
 import router from './routes';
 import cors from 'cors';
+import mongoose from 'mongoose';
 
 //console.log(envUtil.PORT);
 //console.log(typeof envUtil.PORT);
@@ -26,6 +27,10 @@ app.post("/", (request, response) =>{
 })*/
 
 
-app.listen(envUtil.PORT, () => { //Er soll auf unseren Port hören und wenn der Server hochgefahren wird, wird "Server started" ausgegeben.
+app.listen(envUtil.PORT, async () => { //Er soll auf unseren Port hören und wenn der Server hochgefahren wird, wird "Server started" ausgegeben.
     console.log('Server started.');
+
+    await mongoose.connect(envUtil.MONGO_URL);
+    
+    console.log('Connected to MongoDB.');
 });
